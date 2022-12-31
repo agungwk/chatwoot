@@ -403,6 +403,9 @@ export default {
       if (this.isATwilioWhatsAppChannel) {
         return this.$t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.TWILIO');
       }
+      if (this.isAWhatsUnofficialChannel) {
+        return this.$t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.WHATSAPP_UNOFFICIAL');
+      }
       return '';
     },
     tabs() {

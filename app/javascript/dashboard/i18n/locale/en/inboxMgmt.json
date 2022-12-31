@@ -204,6 +204,7 @@
           "LABEL": "API Provider",
           "TWILIO": "Twilio",
           "WHATSAPP_CLOUD": "WhatsApp Cloud",
+          "WHATSAPP_UNOFFICIAL": "WhatsApp UNOFFICIAL",
           "360_DIALOG": "360Dialog"
         },
         "INBOX_NAME": {
@@ -235,6 +236,11 @@
           "LABEL": "API key",
           "SUBTITLE": "Configure the WhatsApp API key.",
           "PLACEHOLDER": "API key",
+          "ERROR": "Please enter a valid value."
+        },
+        "UNOFFICIAL_WEBHOOK_URL": {
+          "LABEL": "Webhook URL",
+          "PLACEHOLDER": "Input the webhook URL",
           "ERROR": "Please enter a valid value."
         },
         "API_CALLBACK": {

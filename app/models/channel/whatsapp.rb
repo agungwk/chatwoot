@@ -24,7 +24,7 @@ class Channel::Whatsapp < ApplicationRecord
   EDITABLE_ATTRS = [:phone_number, :provider, { provider_config: {} }].freeze
 
   # default at the moment is 360dialog lets change later.
-  PROVIDERS = %w[default whatsapp_cloud].freeze
+  PROVIDERS = %w[default whatsapp_cloud whatsapp_unofficial].freeze
   before_validation :ensure_webhook_verify_token
 
   validates :provider, inclusion: { in: PROVIDERS }
@@ -38,11 +38,24 @@ class Channel::Whatsapp < ApplicationRecord
   end
 
   def provider_service
-    if provider == 'whatsapp_cloud'
+    case provider
+    when 'whatsapp_cloud'
       Whatsapp::Providers::WhatsappCloudService.new(whatsapp_channel: self)
+    when 'whatsapp_unofficial'
+      Rails.logger.info "providerxxxx: #{provider}"
+      Whatsapp::Providers::WhatsappUnofficialService.new(whatsapp_channel: self)
     else
       Whatsapp::Providers::Whatsapp360DialogService.new(whatsapp_channel: self)
     end
+
+    # if provider == 'whatsapp_cloud'
+    #   Whatsapp::Providers::WhatsappCloudService.new(whatsapp_channel: self)
+    # elsif provider == 'whatsapp_unofficial'
+    #   Rails.logger.info "providerxxxx: #{provider}"
+    #   Whatsapp::Providers::WhatsappUnofficialService.new(whatsapp_channel: self)
+    # else
+    #   Whatsapp::Providers::Whatsapp360DialogService.new(whatsapp_channel: self)
+    # end
   end
 
   def messaging_window_enabled?
@@ -62,6 +75,8 @@ class Channel::Whatsapp < ApplicationRecord
   end
 
   def validate_provider_config
-    errors.add(:provider_config, 'Invalid Credentials') unless provider_service.validate_provider_config?
+    # if provider != 'whatsapp_cloud'
+    #   errors.add(:provider_config, 'Invalid Credentials') unless provider_service.validate_provider_config?
+    # end
   end
 end

@@ -60,6 +60,12 @@ export default {
         this.whatsAppAPIProvider === 'whatsapp_cloud'
       );
     },
+    isAWhatsUnofficialChannel() {
+      return (
+        this.channelType === INBOX_TYPES.WHATSAPP &&
+        this.whatsAppAPIProvider === 'whatsapp_unofficial'
+      );
+    },
     is360DialogWhatsAppChannel() {
       return (
         this.channelType === INBOX_TYPES.WHATSAPP &&
